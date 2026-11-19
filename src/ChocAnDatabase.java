@@ -20,9 +20,22 @@ public class ChocAnDatabase {
     }
     
 
-    public boolean isValidProvider(String id);
-    public boolean isValidStaff(String id, String role);
-    public Member getMember(String memberNum);    // null if not found
+    public boolean isValidProvider(String id) {
+        return providers.contains(id);
+    }
+    public boolean isValidStaff(String id, String role) {
+        String key = id + ":" + role;
+        return staffIds.contains(key);
+
+    }
+    public Member getMember(String memberNum) { //returns null if not found
+        for (member m : members) {
+            if (m.getNumber() == memberNum) {
+                return m;
+            }
+        }
+        return null;
+    }
     public Provider getProvider(String providerNum);
     public void addMember(Member m);
     public void deleteMember(String memberNum);
