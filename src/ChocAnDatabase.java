@@ -4,6 +4,9 @@
  *
  * @author
  */
+import java.time.LocalDate;
+import java.util.List;
+
 public class ChocAnDatabase {
 
 
@@ -36,14 +39,55 @@ public class ChocAnDatabase {
         }
         return null;
     }
-    public Provider getProvider(String providerNum);
-    public void addMember(Member m);
-    public void deleteMember(String memberNum);
-    public void addProvider(Provider p);
-    public void deleteProvider(String providerNum);
-    public void saveRecord(ServiceRecord r);
-    public List<ServiceRecord> getWeekRecords();
-    public List<Member> getMembersServed();
-    public List<Provider> getProvidersPaid();
+    public Provider getProvider(String providerNum) {
+        for (provider p : providers) {
+            if (p.getNumber() == providerNum) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void addMember(Member m) {
+        members.add(m);
+    }
+    public void deleteMember(String memberNum) {
+        for (member m : members) {
+            if (m.getNumber() == memberNum) {
+                members.remove(m);
+            }
+        }
+    }
+    public void addProvider(Provider p) {
+        providers.add(p);
+
+    }
+    public void deleteProvider(String providerNum) {
+        for (provider p : providers) {
+            if (p.getNumber == providerNum) {
+                providers.remove(p);
+            }
+        }
+    }
+    public void saveRecord(ServiceRecord r) {
+        records.add(r);
+    }
+    public List<ServiceRecord> getWeekRecords() { //returns records saved during the last week
+        LocalDate today = LocalDate.now();
+        LocalDate cutoff = today.minusDays(7);
+        List<ServiceRecord> weekRecords;
+        for (record r : records) {
+            if (!r.daterecieved.isBefore(cutoff) && !r.daterecieved.isAfter(today)) {
+                weekRecords.add(r);
+            }
+        }
+        return weekRecords;
+    }
+    public List<Member> getMembersServed() {
+        return members;
+    }
+    public List<Provider> getProvidersPaid() {
+        return providers;
+    }
 
 }
