@@ -1,0 +1,13 @@
+PROVIDER DIRECTORY
+
+Service Name          Code    Fee
+Aerobics exercise     883948  $45.50
+Blood panel review    845026  $110.75
+Craving assessment    562903  $95.00
+Dietitian session     598470  $85.00
+Follow-up visit       932617  $65.00
+Group therapy         719385  $60.00
+Internist checkup     201114  $120.00
+Nutrition counseling  310250  $70.00
+Weight training       447781  $55.25
+Yoga session          674120  $40.00

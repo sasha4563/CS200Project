@@ -1,0 +1,10 @@
+598470|Dietitian session|85.00
+883948|Aerobics exercise|45.50
+201114|Internist checkup|120.00
+310250|Nutrition counseling|70.00
+447781|Weight training|55.25
+562903|Craving assessment|95.00
+674120|Yoga session|40.00
+719385|Group therapy|60.00
+845026|Blood panel review|110.75
+932617|Follow-up visit|65.00

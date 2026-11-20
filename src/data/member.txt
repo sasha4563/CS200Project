@@ -1,0 +1,10 @@
+Alice Brown|123456789|101 Main St|Tuscaloosa|AL|35401|Active
+Ben Carter|987654321|22 Elm Ave|Northport|AL|35473|Active
+Cara Diaz|555123456|9 Oak Ct|Birmingham|AL|35203|Suspended
+Derek Hall|111222333|48 Pine Rd|Tuscaloosa|AL|35405|Active
+Elena Ruiz|444555666|730 Lake Dr|Hoover|AL|35216|Active
+Frank Moore|777888999|15 Cedar Ln|Northport|AL|35476|Suspended
+Grace Kim|222333444|60 Maple Blvd|Birmingham|AL|35209|Active
+Hector Lee|333444555|8 Birch Way|Tuscaloosa|AL|35406|Active
+Sasha|122222222|343|343|AB|34343|Active
+Sushim|158555555|34|34|AB|34343|Active

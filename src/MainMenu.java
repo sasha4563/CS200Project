@@ -12,6 +12,7 @@ public class MainMenu {
 
     private String currentRole;
     private List<Terminal> terminals;   // 3 terminals (composition): provider, operator, manager
+    private AcmeInterface acme;        // simulated Acme link: applies scheduled status changes
     private Timer timer;                // system scheduler: checked each time the role menu shows
     private Scanner input;
 
@@ -22,6 +23,7 @@ public class MainMenu {
         terminals.add(new OperatorTerminal(db, input));
         terminals.add(new ManagerTerminal(db, input));
         this.timer = new Timer(new ReportController(db));
+        this.acme = new AcmeInterface(new MemberController(db));
     }
 
     public static void main(String[] args) {
@@ -34,6 +36,10 @@ public class MainMenu {
     public void start() {
         while (true) {
             timer.trigger();                 // runs the weekly reports if it is Friday midnight
+            int changed = acme.checkSchedule();   // applies Acme status changes that are now due
+            if (changed > 0) {
+                System.out.println("[Acme] " + changed + " membership status update(s) applied.");
+            }
 
             System.out.println();
             System.out.println("===== ChocAn Data Processing System =====");
@@ -99,26 +105,13 @@ public class MainMenu {
     }
 
     /**
-     * Builds the database with sample data so every feature can be demonstrated.
-     * Number ranges: providers 000000000-000099999, managers 000100000-000199999,
-     * operators 000200000-000299999. Members can use any other 9-digit number.
+     * Loads members, providers, services, and the provider / operator / manager
+     * login numbers from the data folder (provider.txt, operator.txt, manager.txt,
+     * member.txt, ...). On the first run the folder is created with sample data.
      */
     private static ChocAnDatabase createDatabase() {
-        List<Member> members = new ArrayList<>();
-        members.add(new Member(new String[] {"Alice Brown", "123456789", "101 Main St", "Tuscaloosa", "AL", "35401", "Active"}));
-        members.add(new Member(new String[] {"Ben Carter", "987654321", "22 Elm Ave", "Northport", "AL", "35473", "Suspended"}));
-        members.add(new Member(new String[] {"Cara Diaz", "555123456", "9 Oak Ct", "Birmingham", "AL", "35203", "Active"}));
-
-        List<Provider> providers = new ArrayList<>();
-        providers.add(new Provider(new String[] {"Dana Evans", "000012345", "500 Health Way", "Tuscaloosa", "AL", "35401", "Dietitian"}));
-        providers.add(new Provider(new String[] {"Eli Ford", "000054321", "77 Clinic Rd", "Tuscaloosa", "AL", "35404", "Internist"}));
-        providers.add(new Provider(new String[] {"Fay Green", "000099999", "3 Gym Ln", "Northport", "AL", "35476", "Exercise expert"}));
-
-        // Format must match ChocAnDatabase.isValidStaff (currently id + ":" + role).
-        List<String> staffIds = new ArrayList<>();
-        staffIds.add("000150000:MANAGER");
-        staffIds.add("000250000:OPERATOR");
-
-        return new ChocAnDatabase(members, providers, new ArrayList<ServiceRecord>(), staffIds);
+        System.out.println("Data folder: " + AppFolders.dataDir());
+        System.out.println("(member.txt, provider.txt, ... are read from and written to this folder - open THIS folder to see changes)");
+        return ChocAnDatabase.loadFromFiles(AppFolders.dataDir());
     }
 }

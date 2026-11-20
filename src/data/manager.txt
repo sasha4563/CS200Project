@@ -1,0 +1,3 @@
+# one nine-digit manager number per line (100000-199999)
+000150000
+000150001

@@ -1,0 +1,3 @@
+# one nine-digit operator number per line (200000-299999)
+000250000
+000250001

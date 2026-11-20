@@ -1,0 +1,6 @@
+# memberNumber,status,when it takes effect (MM-DD-YYYY HH:MM:SS)
+# Each line is applied once, the first time the program checks after that time.
+# Applied lines get ,APPLIED added. Edit a time to a minute from now to test.
+987654321,Active,11-19-2026 21:00:00,APPLIED
+555123456,Suspended,11-20-2026 09:00:00,APPLIED
+777888999,Active,11-21-2026 21:00:00

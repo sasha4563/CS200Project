@@ -1,0 +1,5 @@
+Druid City Nutrition|000012345|500 Health Way|Tuscaloosa|AL|35401|Dietitian
+Northport Medical Group|000054321|77 Clinic Rd|Northport|AL|35476|Internist
+Crimson Fitness Center|000099999|3 Gym Ln|Tuscaloosa|AL|35404|Exercise expert
+Magic City Wellness|000011111|12 Wellness Ct|Birmingham|AL|35205|Dietitian
+Hoover Health & Fitness|000022222|90 Fit Ave|Hoover|AL|35244|Exercise expert

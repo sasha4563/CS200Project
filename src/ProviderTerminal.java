@@ -109,7 +109,7 @@ public class ProviderTerminal extends Terminal {
     public void requestDirectory() {
         boolean saved = billing.getDirectory();
         if (saved) {
-            display("Directory saved");
+            display("Directory saved in " + AppFolders.directoryDir());
         } else {
             display("Could not save directory");
         }

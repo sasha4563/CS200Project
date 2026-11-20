@@ -10,10 +10,12 @@ public class ManagerTerminal extends Terminal {
 
     private String managerNum;
     private ReportController reports;
+    private AcmeInterface acme;
 
     public ManagerTerminal(ChocAnDatabase db, Scanner input) {
         super(db, input);
         this.reports = new ReportController(db);
+        this.acme = new AcmeInterface(new MemberController(db));
     }
 
     /** Verify Manager sequence diagram: check the number, then show the menu. */
@@ -41,6 +43,20 @@ public class ManagerTerminal extends Terminal {
         }
     }
 
+    /** Applies every pending line of the Acme file right now, ignoring its scheduled times. */
+    public void receiveAcmeUpdates() {
+        String file = prompt("Acme file (press Enter for the data folder's acmesimulation.txt): ");
+        if (file.isEmpty()) {
+            file = AppFolders.dataDir() + "/acmesimulation.txt";
+        }
+        int count = acme.receiveUpdatesNow(file);
+        if (count < 0) {
+            display("Could not read " + file);
+        } else {
+            display(count + " member record(s) updated from Acme.");
+        }
+    }
+
     @Override
     public void showMenu() {
         while (loggedIn) {
@@ -51,6 +67,7 @@ public class ManagerTerminal extends Terminal {
             display("3) Accounts Payable Summary report");
             display("4) EFT data file");
             display("5) Run main accounting procedure (all reports)");
+            display("6) Run Acme updates now (ignore scheduled times)");
             display("0) Log out");
             String choice = prompt("Choose an option: ");
 
@@ -64,8 +81,9 @@ public class ManagerTerminal extends Terminal {
                     reports.runWeeklyReports();
                     display("Main accounting procedure complete.");
                     break;
+                case "6": receiveAcmeUpdates(); break;
                 case "0": logout(); break;
-                default: display("Invalid option. Please choose 0-5.");
+                default: display("Invalid option. Please choose 0-6.");
             }
         }
     }
