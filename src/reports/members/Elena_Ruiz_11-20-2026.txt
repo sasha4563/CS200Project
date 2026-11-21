@@ -1,0 +1,13 @@
+MEMBER REPORT - week ending 11-20-2026
+
+Member name:    Elena Ruiz
+Member number:  444555666
+Street address: 730 Lake Dr
+City:           Hoover
+State:          AL
+ZIP code:       35216
+
+Services received:
+  Date of Service Provider Name              Service Name
+  11-15-2026      Druid City Nutrition       Follow-up visit
+  11-16-2026      Crimson Fitness Center     Aerobics exercise

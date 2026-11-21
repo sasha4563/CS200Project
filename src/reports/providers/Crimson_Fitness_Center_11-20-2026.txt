@@ -1,0 +1,17 @@
+PROVIDER REPORT - week ending 11-20-2026
+
+Provider name:   Crimson Fitness Center
+Provider number: 000099999
+Street address:  3 Gym Ln
+City:            Tuscaloosa
+State:           AL
+ZIP code:        35404
+
+Services provided:
+  Service Date  Received             Member Name                Member #   Code    Fee
+  11-13-2026    11-14-2026 12:22:34  Cara Diaz                  555123456  447781  $55.25
+  11-17-2026    11-17-2026 17:22:34  Derek Hall                 111222333  883948  $45.50
+  11-16-2026    11-17-2026 18:22:34  Elena Ruiz                 444555666  883948  $45.50
+
+Total number of consultations: 003
+Total fee for week: $146.25

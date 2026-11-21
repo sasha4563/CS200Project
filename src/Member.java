@@ -1,9 +1,9 @@
 /**
- * A ChocAn member, with a membership status of Active or Suspended.
+ * A ChocAn member (a person), with a membership status of Active or Suspended.
  *
  * @author Florencia
  */
-public class Member extends Person {
+public class Member extends Party {
 
     private String status;   // "Active" / "Suspended"
 

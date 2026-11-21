@@ -57,6 +57,22 @@ public class ManagerTerminal extends Terminal {
         }
     }
 
+    /**
+     * Moves this week's billed services to records_archive.txt so the next reports start clean.
+     * The weekly update (Timer) does this by itself after its reports every Friday at 12 AM.
+     */
+    public void clearWeek() {
+        String answer = prompt("Move this week's billed services to records_archive.txt? (Y/N): ");
+        if (!answer.equalsIgnoreCase("Y")) {
+            display("Cancelled. Nothing was cleared.");
+            return;
+        }
+        int moved = reports.startNewWeek();
+        if (moved < 0) {
+            display("Could not clear this week's data.");
+        }
+    }
+
     @Override
     public void showMenu() {
         while (loggedIn) {
@@ -67,7 +83,8 @@ public class ManagerTerminal extends Terminal {
             display("3) Accounts Payable Summary report");
             display("4) EFT data file");
             display("5) Run main accounting procedure (all reports)");
-            display("6) Run Acme updates now (ignore scheduled times)");
+            display("6) Force apply the Acme changes right now");
+            display("7) Clear this week's data (start a new week)");
             display("0) Log out");
             String choice = prompt("Choose an option: ");
 
@@ -82,8 +99,9 @@ public class ManagerTerminal extends Terminal {
                     display("Main accounting procedure complete.");
                     break;
                 case "6": receiveAcmeUpdates(); break;
+                case "7": clearWeek(); break;
                 case "0": logout(); break;
-                default: display("Invalid option. Please choose 0-6.");
+                default: display("Invalid option. Please choose 0-7.");
             }
         }
     }

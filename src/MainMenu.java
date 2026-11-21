@@ -46,6 +46,7 @@ public class MainMenu {
             System.out.println("1) Provider");
             System.out.println("2) Operator");
             System.out.println("3) Manager");
+            System.out.println("4) Force apply the Acme changes right now");
             System.out.println("0) Exit");
             String choice = readLine("Choose your role: ");
 
@@ -68,11 +69,17 @@ public class MainMenu {
                     while (!mt.loginManager(readLine("Enter manager number: ")) && tryAgain()) { }
                     break;
                 }
+                case "4": {
+                    int n = acme.receiveUpdatesNow(AppFolders.dataDir() + "/acmesimulation.txt");
+                    System.out.println(n < 0 ? "Could not read the Acme file."
+                            : "[Acme] " + n + " membership status change(s) applied.");
+                    break;
+                }
                 case "0":
                     System.out.println("Goodbye.");
                     return;
                 default:
-                    System.out.println("Invalid option. Please choose 0-3.");
+                    System.out.println("Invalid option. Please choose 0-4.");
             }
             currentRole = null;
         }

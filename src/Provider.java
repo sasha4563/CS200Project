@@ -4,7 +4,7 @@
  *
  * @author Florencia
  */
-public class Provider extends Person {
+public class Provider extends Party {
 
     private String type;   // dietitian, internist, exercise expert
 

@@ -1,0 +1,13 @@
+MEMBER REPORT - week ending 11-20-2026
+
+Member name:    Derek Hall
+Member number:  111222333
+Street address: 48 Pine Rd
+City:           Tuscaloosa
+State:          AL
+ZIP code:       35405
+
+Services received:
+  Date of Service Provider Name              Service Name
+  11-17-2026      Crimson Fitness Center     Aerobics exercise
+  11-19-2026      Druid City Nutrition       Dietitian session

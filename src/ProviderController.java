@@ -44,7 +44,7 @@ public class ProviderController {
 
     /** info[] = name, number, address, city, state, zip, type. */
     public boolean addProvider(String[] info) {
-        String error = Person.validate(info);
+        String error = Party.validate(info);
         if (error != null) {
             return fail(error);
         }
@@ -71,7 +71,7 @@ public class ProviderController {
         }
         String[] copy = info.clone();
         copy[1] = providerNum;
-        String error = Person.validate(copy);
+        String error = Party.validate(copy);
         if (error != null) {
             return fail(error);
         }

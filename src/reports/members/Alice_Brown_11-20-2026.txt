@@ -1,0 +1,15 @@
+MEMBER REPORT - week ending 11-20-2026
+
+Member name:    Alice Brown
+Member number:  123456789
+Street address: 101 Main St
+City:           Tuscaloosa
+State:          AL
+ZIP code:       35401
+
+Services received:
+  Date of Service Provider Name              Service Name
+  11-15-2026      Hoover Health & Fitness    Yoga session
+  11-18-2026      Northport Medical Group    Internist checkup
+  11-18-2026      Druid City Nutrition       Dietitian session
+  11-20-2026      Druid City Nutrition       Dietitian session

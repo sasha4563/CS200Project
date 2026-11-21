@@ -1,0 +1,15 @@
+PROVIDER REPORT - week ending 11-20-2026
+
+Provider name:   Hoover Health & Fitness
+Provider number: 000022222
+Street address:  90 Fit Ave
+City:            Hoover
+State:           AL
+ZIP code:        35244
+
+Services provided:
+  Service Date  Received             Member Name                Member #   Code    Fee
+  11-15-2026    11-15-2026 13:22:34  Alice Brown                123456789  674120  $40.00
+
+Total number of consultations: 001
+Total fee for week: $40.00

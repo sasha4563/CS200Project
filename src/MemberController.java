@@ -60,7 +60,7 @@ public class MemberController {
 
     /** info[] = name, number, address, city, state, zip, status. */
     public boolean addMember(String[] info) {
-        String error = Person.validate(info);
+        String error = Party.validate(info);
         if (error != null) {
             return fail(error);
         }
@@ -87,7 +87,7 @@ public class MemberController {
         }
         String[] copy = info.clone();
         copy[1] = memberNum;
-        String error = Person.validate(copy);
+        String error = Party.validate(copy);
         if (error != null) {
             return fail(error);
         }

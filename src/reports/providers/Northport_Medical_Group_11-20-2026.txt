@@ -1,0 +1,16 @@
+PROVIDER REPORT - week ending 11-20-2026
+
+Provider name:   Northport Medical Group
+Provider number: 000054321
+Street address:  77 Clinic Rd
+City:            Northport
+State:           AL
+ZIP code:        35476
+
+Services provided:
+  Service Date  Received             Member Name                Member #   Code    Fee
+  11-16-2026    11-16-2026 16:22:34  (unknown member)           333444555  845026  $110.75
+  11-18-2026    11-18-2026 20:22:34  Alice Brown                123456789  201114  $120.00
+
+Total number of consultations: 002
+Total fee for week: $230.75

@@ -12,6 +12,23 @@ public class ReportController {
 
     private ChocAnDatabase db;
     private List<Report> reports = new ArrayList<>();
+    private boolean quiet = false;       // true = do not print to the console (the GUI shows the results itself)
+    private String note = "";            // extra information about the last run, e.g. skipped services
+
+    /** When quiet, nothing is printed to the console. */
+    public void setQuiet(boolean quiet) {
+        this.quiet = quiet;
+    }
+
+    /** The reports built by the last runWeeklyReports / makeReport call. */
+    public List<Report> getReports() {
+        return new ArrayList<>(reports);
+    }
+
+    /** A message about the last run (for example "No services have been billed this week."), or "". */
+    public String getNote() {
+        return note;
+    }
 
     public ReportController(ChocAnDatabase db) {
         this.db = db;
@@ -20,6 +37,7 @@ public class ReportController {
     /** Main accounting procedure: member reports, provider reports, summary, and EFT data. */
     public void runWeeklyReports() {
         reports.clear();
+        note = "";
         for (Member m : db.getMembersServed()) {
             reports.add(new MemberReport(m, db));
         }
@@ -32,12 +50,29 @@ public class ReportController {
     }
 
     /**
+     * Starts a new week: this week's service records are moved to records_archive.txt, so the
+     * next reports start clean. The weekly update (Timer) does this right after its reports; a
+     * manager can also do it by hand at any time.
+     * @return the number of service records moved, or -1 if the files could not be written
+     */
+    public int startNewWeek() {
+        int moved = db.clearWeekRecords();
+        note = (moved < 0) ? "Could not clear this week's data: " + db.getLastWriteError()
+                : moved + " service record(s) moved to records_archive.txt. This week starts fresh.";
+        if (!quiet) {
+            System.out.println("  " + note);
+        }
+        return moved;
+    }
+
+    /**
      * One report type on a manager's request.
      * @param type "member", "provider", "summary", or "eft"
      * @return true if the report(s) were saved
      */
     public boolean makeReport(String type) {
         reports.clear();
+        note = "";
         switch (type.toLowerCase()) {
             case "member":
                 for (Member m : db.getMembersServed()) {
@@ -59,7 +94,10 @@ public class ReportController {
                 return false;
         }
         if (reports.isEmpty()) {
-            System.out.println("No services have been billed this week.");
+            note = "No services have been billed this week.";
+            if (!quiet) {
+                System.out.println(note);
+            }
             return false;
         }
         return generateAndSave();
@@ -79,8 +117,11 @@ public class ReportController {
             }
         }
         if (payable.size() < week.size()) {
-            System.out.println("  Note: " + (week.size() - payable.size())
-                    + " billed service(s) from provider(s) no longer in the system are not in the Summary / EFT.");
+            note = (week.size() - payable.size())
+                    + " billed service(s) from provider(s) no longer in the system are not in the Summary / EFT.";
+            if (!quiet) {
+                System.out.println("  Note: " + note);
+            }
         }
 
         boolean allSaved = true;
@@ -89,8 +130,10 @@ public class ReportController {
             r.generate(money ? payable : week);
             boolean saved = r.saveToFile();
             allSaved &= saved;
-            System.out.println((saved ? "  Saved " : "  FAILED to save ") + r.getPath());
-            if (r instanceof SummaryReport) {
+            if (!quiet) {
+                System.out.println((saved ? "  Saved " : "  FAILED to save ") + r.getPath());
+            }
+            if (!quiet && r instanceof SummaryReport) {
                 System.out.println();
                 for (String line : r.getLines()) {
                     System.out.println("  " + line);

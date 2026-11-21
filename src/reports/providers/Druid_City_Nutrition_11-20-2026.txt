@@ -1,0 +1,19 @@
+PROVIDER REPORT - week ending 11-20-2026
+
+Provider name:   Druid City Nutrition
+Provider number: 000012345
+Street address:  500 Health Way
+City:            Tuscaloosa
+State:           AL
+ZIP code:        35401
+
+Services provided:
+  Service Date  Received             Member Name                Member #   Code    Fee
+  11-15-2026    11-15-2026 14:22:34  Elena Ruiz                 444555666  932617  $65.00
+  11-18-2026    11-18-2026 19:22:34  Cara Diaz                  555123456  598470  $85.00
+  11-18-2026    11-19-2026 21:22:34  Alice Brown                123456789  598470  $85.00
+  11-19-2026    11-19-2026 22:22:34  Derek Hall                 111222333  598470  $85.00
+  11-20-2026    11-20-2026 17:36:03  Alice Brown                123456789  598470  $85.00
+
+Total number of consultations: 005
+Total fee for week: $405.00

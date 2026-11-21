@@ -1,0 +1,12 @@
+MEMBER REPORT - week ending 11-20-2026
+
+Member name:    Grace Kim
+Member number:  222333444
+Street address: 60 Maple Blvd
+City:           Birmingham
+State:          AL
+ZIP code:       35209
+
+Services received:
+  Date of Service Provider Name              Service Name
+  11-15-2026      Magic City Wellness        Nutrition counseling

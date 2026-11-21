@@ -1,0 +1,12 @@
+ACCOUNTS PAYABLE SUMMARY - week ending 11-20-2026
+
+Provider Name              Provider #  Consultations  Total Fee
+Crimson Fitness Center     000099999   3              $146.25
+Hoover Health & Fitness    000022222   1              $40.00
+Druid City Nutrition       000012345   5              $405.00
+Magic City Wellness        000011111   1              $70.00
+Northport Medical Group    000054321   2              $230.75
+
+Total number of providers who provided services: 5
+Total number of consultations: 12
+Overall fee total: $892.00

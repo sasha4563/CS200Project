@@ -34,6 +34,12 @@ public class SampleData {
     /** Run "java SampleData" to reset every data file to fresh sample data. */
     public static void main(String[] args) {
         force = true;
+        try {
+            Files.deleteIfExists(Paths.get(AppFolders.dataDir(), "weekly_update.txt"));
+            Files.deleteIfExists(Paths.get(AppFolders.dataDir(), "records_archive.txt"));
+        } catch (IOException e) {
+            System.out.println("Could not remove old state files: " + e.getMessage());
+        }
         ensureFiles(AppFolders.dataDir());
         System.out.println("Sample data files rewritten in: " + AppFolders.dataDir());
     }

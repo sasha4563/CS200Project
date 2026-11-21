@@ -1,0 +1,1949 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLText</id>
+    <coordinates>
+      <x>30</x>
+      <y>10</y>
+      <w>900</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>*ChocAn - class diagram 1 of 2: the core system*
+fontsize=22</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>160</y>
+      <w>310</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>MainMenu
+«Sydney Renninger»
+--
+-currentRole: String
+-terminals: List&lt;Terminal&gt;
+-timer: Timer
+-acme: AcmeInterface
+--
++start(): void
++chooseRole(role: String): Terminal
+_+main(args: String[]): void_
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>160</y>
+      <w>444</w>
+      <h>242</h>
+    </coordinates>
+    <panel_attributes>«abstract»
+/Terminal/
+«Sydney Renninger»
+--
+#userId: String
+#loggedIn: boolean
+#login: LoginController
+#input: Scanner
+--
++display(message: String): void
+/+showMenu(): void {abstract}/
++logout(): void
+#prompt(label: String): String
+#promptMatching(label, regex, error: String): String
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2000</x>
+      <y>160</y>
+      <w>452</w>
+      <h>242</h>
+    </coordinates>
+    <panel_attributes>Timer
+«Namita»
+--
+-runDay: String = "Friday"
+-runTime: String = "12:00 AM"
+-reports: ReportController
+-lastRun: LocalDateTime
+-lastSummary: String
+--
++trigger(): boolean
++getLastRun(): LocalDateTime
++getNextDue(): LocalDateTime
++getLastSummary(): String
+-mostRecentRunTime(now: LocalDateTime): LocalDateTime
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>520</y>
+      <w>365</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>ProviderTerminal
+«Sydney Renninger»
+--
+-providerNum: String
+-billing: ServiceController
+-validator: MemberController
+--
++loginProvider(id: String): boolean
++validateMember(memberNum: String): String
++billChocAn(memberNum: String): void
++requestDirectory(): void
++showMenu(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>520</y>
+      <w>492</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>OperatorTerminal
+«Sydney Renninger»
+--
+-operatorNum: String
+-memberCtrl: MemberController
+-providerCtrl: ProviderController
+--
++loginOperator(id: String): boolean
++manageMember(action: String, memberNum: String): void
++manageProvider(action: String, providerNum: String): void
++showMenu(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1180</x>
+      <y>520</y>
+      <w>302</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>ManagerTerminal
+«Sydney Renninger»
+--
+-managerNum: String
+-reports: ReportController
+-acme: AcmeInterface
+--
++loginManager(id: String): boolean
++requestReport(type: String): void
++receiveAcmeUpdates(): void
++clearWeek(): void
++showMenu(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1650</x>
+      <y>520</y>
+      <w>326</w>
+      <h>242</h>
+    </coordinates>
+    <panel_attributes>AcmeInterface
+«Sameeksha»
+--
+-lastUpdate: String
+-memberCtrl: MemberController
+-simulationFile: String
+--
++receiveUpdates(file: String): int
++receiveUpdatesNow(file: String): int
++checkSchedule(): int
++countPending(): int
++nextScheduled(): String
++getLastUpdate(): String
++getSimulationFile(): String
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>940</y>
+      <w>365</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>ServiceController
+«Sameeksha»
+--
+-db: ChocAnDatabase
+-directory: ProviderDirectory
+--
++getService(code: String): Service
++billService(memberNum, providerNum, date,
+      code, comments: String): double
++getDirectory(): boolean
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>940</y>
+      <w>484</w>
+      <h>291</h>
+    </coordinates>
+    <panel_attributes>MemberController
+«Sameeksha»
+--
+-db: ChocAnDatabase
+-lastError: String
+--
++validateMember(memberNum: String): String
++memberExists(memberNum: String): boolean
++addMember(info: String[]): boolean
++updateMember(memberNum: String, info: String[]): boolean
++deleteMember(memberNum: String): boolean
++setStatus(memberNum: String, status: String): boolean
++getMember(memberNum: String): Member
++getLastError(): String
++getSavedLine(memberNum: String): String
++getDataFile(): String
++getFileContents(): List&lt;String&gt;
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>940</y>
+      <w>515</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>ProviderController
+«Sameeksha»
+--
+-db: ChocAnDatabase
+-lastError: String
+--
++providerExists(providerNum: String): boolean
++addProvider(info: String[]): boolean
++updateProvider(providerNum: String, info: String[]): boolean
++deleteProvider(providerNum: String): boolean
++getProvider(providerNum: String): Provider
++getLastError(): String
++getSavedLine(providerNum: String): String
++getDataFile(): String
++getFileContents(): List&lt;String&gt;
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1300</x>
+      <y>160</y>
+      <w>397</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>LoginController
+«Sydney Renninger»
+--
+-db: ChocAnDatabase
+--
++checkLogin(id: String, role: String): boolean
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2000</x>
+      <y>940</y>
+      <w>302</w>
+      <h>242</h>
+    </coordinates>
+    <panel_attributes>ReportController
+«Namita»
+--
+-db: ChocAnDatabase
+-reports: List&lt;Report&gt;
+-quiet: boolean
+-note: String
+--
++runWeeklyReports(): void
++makeReport(type: String): boolean
++startNewWeek(): int
++getReports(): List&lt;Report&gt;
++getNote(): String
++setQuiet(quiet: boolean): void
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>1500</y>
+      <w>357</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>ProviderDirectory
+«Sameeksha»
+--
+_+OUTPUT_DIR: String = "ProviderDirectory"_
+-services: List&lt;Service&gt;
+-dataDir: String
+--
++findService(code: String): Service
++sortByName(): void
++getServices(): List&lt;Service&gt;
++saveToFile(): boolean
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>1480</y>
+      <w>413</w>
+      <h>539</h>
+    </coordinates>
+    <panel_attributes>ChocAnDatabase
+«Samantha»
+--
+-members: List&lt;Member&gt;
+-providers: List&lt;Provider&gt;
+-records: List&lt;ServiceRecord&gt;
+-staffIds: List&lt;String&gt;
+-dataDir: String
+-lastWriteError: String
+--
+_+loadFromFiles(dir: String): ChocAnDatabase_
++isValidProvider(id: String): boolean
++isValidStaff(id: String, role: String): boolean
++getMember(memberNum: String): Member
++getProvider(providerNum: String): Provider
++getMembers(): List&lt;Member&gt;
++getProviders(): List&lt;Provider&gt;
++addMember(m: Member): boolean
++deleteMember(memberNum: String): boolean
++saveMember(m: Member): boolean
++addProvider(p: Provider): boolean
++deleteProvider(providerNum: String): boolean
++saveProvider(p: Provider): boolean
++saveRecord(r: ServiceRecord): boolean
++getWeekRecords(): List&lt;ServiceRecord&gt;
++getMembersServed(): List&lt;Member&gt;
++getProvidersPaid(): List&lt;Provider&gt;
++clearWeekRecords(): int
++readBack(file: String, number: String): String
++getFilePath(file: String): String
++readFileNumbered(file: String): List&lt;String&gt;
++getLastWriteError(): String
+bg=#FFE7B0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2100</x>
+      <y>1480</y>
+      <w>476</w>
+      <h>242</h>
+    </coordinates>
+    <panel_attributes>«abstract»
+/Report/
+«Namita»
+--
+#reportDate: String
+#fileName: String
+#folder: String
+#lines: List&lt;String&gt;
+--
+/+generate(records: List&lt;ServiceRecord&gt;): void {abstract}/
++saveToFile(): boolean
++getFileName(): String
++getPath(): String
++getLines(): List&lt;String&gt;
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>1850</y>
+      <w>421</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>Service
+«Namita»
+--
+-code: String
+-name: String
+-fee: double
+--
++Service(code: String, name: String, fee: double)
++getCode(): String
++getName(): String
++getFee(): double
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>2200</y>
+      <w>579</w>
+      <h>374</h>
+    </coordinates>
+    <panel_attributes>ServiceRecord
+«Namita»
+--
+-dateReceived: String
+-serviceDate: String
+-providerNum: String
+-memberNum: String
+-serviceCode: String
+-comments: String
+-fee: double
+-service: Service
+--
++ServiceRecord(memberNum, providerNum, date: String,
+      s: Service, comments, dateReceived: String)
++getDateReceived(), getServiceDate(), getProviderNum(),
+      getMemberNum(), getServiceCode(), getComments(): String
++getFee(): double
++getService(): Service
++getServiceLocalDate(): LocalDate
++getReceivedDateTime(): LocalDateTime
++toLine(): String
+_+fromLine(line: String, services: Map&lt;String,Service&gt;): ServiceRecord_
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1250</x>
+      <y>2200</y>
+      <w>326</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>«abstract»
+/Party/
+«Florencia»
+--
+#name: String
+#number: String
+#address: String
+#city: String
+#state: String
+#zip: String
+--
++getName(): String
++getNumber(): String
++getAddress(): String
++getCity(): String
++getState(): String
++getZip(): String
++update(info: String[]): void
+_+validate(info: String[]): String_
+_+isValidInfo(info: String[]): boolean_
+/+toLine(): String {abstract}/
+bg=#FFD3E4</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>880</x>
+      <y>2200</y>
+      <w>286</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>Member
+«Florencia»
+--
+-status: String
+--
++Member(info: String[])
++getStatus(): String
++setStatus(status: String): void
++update(info: String[]): void
++toLine(): String
+bg=#FFD3E4</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1660</x>
+      <y>2200</y>
+      <w>263</w>
+      <h>159</h>
+    </coordinates>
+    <panel_attributes>Provider
+«Florencia»
+--
+-type: String
+--
++Provider(info: String[])
++getType(): String
++update(info: String[]): void
++toLine(): String
+bg=#FFD3E4</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2250</x>
+      <y>1800</y>
+      <w>389</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>MemberReport
+«Sameeksha»
+--
+-member: Member
+-db: ChocAnDatabase
+--
++MemberReport(m: Member, db: ChocAnDatabase)
++generate(records: List&lt;ServiceRecord&gt;): void
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2250</x>
+      <y>2010</y>
+      <w>413</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>ProviderReport
+«Sameeksha»
+--
+-provider: Provider
+-db: ChocAnDatabase
+-totalFee: double
+--
++ProviderReport(p: Provider, db: ChocAnDatabase)
++generate(records: List&lt;ServiceRecord&gt;): void
++getTotalFee(): double
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2250</x>
+      <y>2250</y>
+      <w>389</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>SummaryReport
+«Namita»
+--
+-db: ChocAnDatabase
+-totalProviders: int
+-totalConsultations: int
+-totalFee: double
+--
++SummaryReport(db: ChocAnDatabase)
++generate(records: List&lt;ServiceRecord&gt;): void
++getTotalProviders(): int
++getTotalConsultations(): int
++getTotalFee(): double
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2250</x>
+      <y>2500</y>
+      <w>389</w>
+      <h>159</h>
+    </coordinates>
+    <panel_attributes>EFTReport
+«Namita»
+--
+-db: ChocAnDatabase
+-payments: List&lt;String&gt;
+--
++EFTReport(db: ChocAnDatabase)
++generate(records: List&lt;ServiceRecord&gt;): void
++getPayments(): List&lt;String&gt;
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>2650</y>
+      <w>215</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>AppFolders
+«Sameeksha»
+--
+--
+_+base(): Path_
+_+dataDir(): String_
+_+reportsDir(): String_
+_+directoryDir(): String_
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>2650</y>
+      <w>278</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>SampleData
+«Sameeksha»
+--
+--
+_+ensureFiles(dir: String): void_
+_+main(args: String[]): void_
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2240</x>
+      <y>470</y>
+      <w>560</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>Weekly update (Namita): every Friday 12:00 AM the Timer calls
+ReportController.runWeeklyReports(), then startNewWeek(), which
+moves this week's services to records_archive.txt. The time of the
+last run is kept in weekly_update.txt, so a missed Friday is caught up.
+bg=#FFFBE0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2250</x>
+      <y>2750</y>
+      <w>520</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Every Report subclass takes the ChocAnDatabase in its
+constructor, to look up provider and member names.
+SummaryReport and EFTReport only cover providers that
+are still in the system.
+bg=#FFFBE0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>400</x>
+      <y>2790</y>
+      <w>700</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>AppFolders finds the one folder that holds data/, reports/ and
+ProviderDirectory/ (used by ChocAnDatabase, ProviderDirectory,
+Report, AcmeInterface and Timer). SampleData writes the sample files.
+bg=#FFFBE0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>210</y>
+      <w>370</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=3
+r2=terminals</panel_attributes>
+    <additional_attributes>20.0;20.0;350.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>50</y>
+      <w>2035</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+r2=timer</panel_attributes>
+    <additional_attributes>20.0;110.0;20.0;20.0;2015.5;20.0;2015.5;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>303</x>
+      <y>85</y>
+      <w>1529</w>
+      <h>455</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+r2=acme</panel_attributes>
+    <additional_attributes>20.0;75.0;20.0;20.0;1509.5;20.0;1509.5;435.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1124</x>
+      <y>215</y>
+      <w>196</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+logs in with ▶
+m1=1..*
+m2=1
+r2=login</panel_attributes>
+    <additional_attributes>20.0;20.0;176.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>222</x>
+      <y>382</y>
+      <w>719</w>
+      <h>158</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>699.5;20.0;699.5;58.0;20.0;58.0;20.0;138.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>786</x>
+      <y>382</y>
+      <w>156</w>
+      <h>158</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>136.0;20.0;136.0;58.0;20.0;58.0;20.0;138.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>902</x>
+      <y>382</y>
+      <w>449</w>
+      <h>158</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;58.0;429.0;58.0;429.0;138.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>131</x>
+      <y>709</y>
+      <w>40</w>
+      <h>251</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+bills with ▶
+m1=0..*
+m2=1
+r2=billing</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;231.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>709</y>
+      <w>276</w>
+      <h>251</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+validates ▶
+m1=0..*
+m2=1
+r2=validator</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;141.0;256.9;141.0;256.9;231.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>687</x>
+      <y>692</y>
+      <w>118</w>
+      <h>268</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+manages ▶
+m1=0..*
+m2=1
+r2=memberCtrl</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;158.0;98.6;158.0;98.6;248.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>958</x>
+      <y>692</y>
+      <w>203</w>
+      <h>268</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+manages ▶
+m1=0..*
+m2=1
+r2=providerCtrl</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;178.0;183.6;178.0;183.6;248.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1431</x>
+      <y>709</y>
+      <w>618</w>
+      <h>251</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+requests ▶
+m1=0..*
+m2=1
+r2=reports</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;181.0;598.4;181.0;598.4;231.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1462</x>
+      <y>610</y>
+      <w>208</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+forces ▶
+m1=0..*
+m2=1
+r2=acme</panel_attributes>
+    <additional_attributes>20.0;20.0;188.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>925</x>
+      <y>742</y>
+      <w>783</w>
+      <h>218</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+updates ▶
+m1=1
+m2=1
+r2=memberCtrl</panel_attributes>
+    <additional_attributes>763.2;20.0;763.2;163.0;20.0;163.0;20.0;198.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2180</x>
+      <y>382</y>
+      <w>40</w>
+      <h>578</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+triggers ▶
+m1=1
+m2=1
+r2=reports</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;558.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>368</x>
+      <y>1096</y>
+      <w>684</w>
+      <h>404</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+saves to ▶
+m2=1
+r2=db</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;194.0;664.5;194.0;664.5;384.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>742</x>
+      <y>1211</y>
+      <w>393</w>
+      <h>289</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+r2=db</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;124.0;373.6;124.0;373.6;269.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
+      <y>1178</y>
+      <w>40</w>
+      <h>322</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+r2=db</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;302.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1368</x>
+      <y>250</y>
+      <w>271</w>
+      <h>1250</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+checks ▶
+m2=1
+r2=db</panel_attributes>
+    <additional_attributes>251.8;20.0;251.8;1160.0;20.0;1160.0;20.0;1230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1310</x>
+      <y>1162</y>
+      <w>739</w>
+      <h>338</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+reads ▶
+m2=1
+r2=db</panel_attributes>
+    <additional_attributes>719.8;20.0;719.8;283.0;20.0;283.0;20.0;318.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>1096</y>
+      <w>40</w>
+      <h>424</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+looks up ▶
+m1=1
+m2=1
+r2=directory</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;404.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2210</x>
+      <y>1162</y>
+      <w>40</w>
+      <h>338</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+creates ▶
+m1=1
+m2=0..*
+r2=reports</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;318.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>1672</y>
+      <w>40</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+lists ▶
+m1=1
+m2=1..*
+r2=services</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;178.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1999</y>
+      <w>40</w>
+      <h>221</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+stores ▶
+m1=1
+m2=0..*
+r2=members</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;201.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1351</x>
+      <y>1999</y>
+      <w>459</w>
+      <h>221</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+stores ▶
+m1=1
+m2=0..*
+r2=providers</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;111.0;439.8;111.0;439.8;201.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>474</x>
+      <y>1999</y>
+      <w>570</w>
+      <h>221</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+stores ▶
+m1=1
+m2=0..*
+r2=records</panel_attributes>
+    <additional_attributes>550.5;20.0;550.5;111.0;20.0;111.0;20.0;201.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>120</x>
+      <y>2022</y>
+      <w>40</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+records ▶
+m1=0..*
+m2=1
+r2=service</panel_attributes>
+    <additional_attributes>20.0;178.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1146</x>
+      <y>2270</y>
+      <w>124</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>104.0;20.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1556</x>
+      <y>2270</y>
+      <w>124</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;20.0;104.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2180</x>
+      <y>1702</y>
+      <w>90</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;169.5;70.0;169.5</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2180</x>
+      <y>1702</y>
+      <w>90</w>
+      <h>416</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;396.0;70.0;396.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2180</x>
+      <y>1702</y>
+      <w>90</w>
+      <h>680</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;660.5;70.0;660.5</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2180</x>
+      <y>1702</y>
+      <w>90</w>
+      <h>897</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;877.5;70.0;877.5</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>658</x>
+      <y>1930</y>
+      <w>362</w>
+      <h>790</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+creates sample data ▶</panel_attributes>
+    <additional_attributes>342.0;20.0;102.0;20.0;102.0;770.0;20.0;770.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>255</x>
+      <y>2680</y>
+      <w>165</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+◀ finds folders</panel_attributes>
+    <additional_attributes>145.0;20.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLText</id>
+    <coordinates>
+      <x>60</x>
+      <y>2900</y>
+      <w>600</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Who built what (colour = author)*</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>2945</y>
+      <w>520</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>Sydney Renninger
+--
+MainMenu, Terminal, ProviderTerminal, OperatorTerminal,
+ManagerTerminal, LoginController, and the whole GUI
+(ChocAnGUI, AppPanel, LoginPanel, ProviderPanel,
+OperatorPanel, ManagerPanel, Ui)
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>2945</y>
+      <w>520</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>Florencia
+--
+Party, Member, Provider
+bg=#FFD3E4</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1140</x>
+      <y>2945</y>
+      <w>520</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>Namita
+--
+Timer (the weekly update), ReportController, Report,
+SummaryReport, EFTReport, Service, ServiceRecord
+bg=#E0D7FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1680</x>
+      <y>2945</y>
+      <w>520</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>Sameeksha
+--
+AcmeInterface, MemberController, ProviderController,
+ServiceController, ProviderDirectory, MemberReport,
+ProviderReport, SampleData, AppFolders, and the data-file
+persistence in ChocAnDatabase
+bg=#D3F0D3</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2220</x>
+      <y>2945</y>
+      <w>520</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>Samantha
+--
+ChocAnDatabase (storage and lookups)
+bg=#FFE7B0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLText</id>
+    <coordinates>
+      <x>30</x>
+      <y>3310</y>
+      <w>1000</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>*ChocAn - class diagram 2 of 2: the graphical user interface*
+fontsize=22</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>3400</y>
+      <w>247</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>ChocAnGUI
+«extends JFrame»
+«Sydney Renninger»
+--
+--
++ChocAnGUI()
+_+main(args: String[]): void_
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>3400</y>
+      <w>539</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>AppPanel
+«extends Ui.GradientPanel»
+«Sydney Renninger»
+--
+-loginPanel: LoginPanel
+-shell: JPanel
+-roleScreen: Component
+-scheduler: Timer
+-acme: AcmeInterface
+--
++setStatus(message: String): void
++addNotify(): void
+-showLogin(): void
+-signedIn(role: String, id: String): void
+-sidebar(displayName, roleLine: String, paged: Ui.Paged): JPanel
+-tick(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1250</x>
+      <y>3400</y>
+      <w>294</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>«interface»
+Ui.Host
+«Sydney Renninger»
+--
+--
++setStatus(message: String): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1250</x>
+      <y>3600</y>
+      <w>302</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>Ui.GradientPanel
+«extends JPanel»
+«Sydney Renninger»
+--
+--
+#paintComponent(g: Graphics): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>3920</y>
+      <w>271</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>LoginPanel
+«extends JPanel»
+«Sydney Renninger»
+--
+-login: LoginController
+-acme: AcmeInterface
+--
++attempt(): void
++select(index: int): void
++forceAcmeNow(): void
++refreshAcme(): void
++reset(): void
++setNumber(text: String): void
++getSignInButton(): JButton
++getForceAcmeButton(): JButton
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>3920</y>
+      <w>207</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>ProviderPanel
+«extends JPanel»
+«Sydney Renninger»
+--
+-providerNum: String
+-pages: Ui.Pages
+--
++getPages(): Ui.Pages
++pageIcons(): String[]
++refresh(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>3920</y>
+      <w>255</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>ManagerPanel
+«extends JPanel»
+«Sydney Renninger»
+--
+-scheduler: Timer
+-acmeFile: String
+-pages: Ui.Pages
+--
++getPages(): Ui.Pages
++pageIcons(): String[]
++refresh(): void
+~request(type: String): void
+~doClearWeek(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1220</x>
+      <y>3920</y>
+      <w>207</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>OperatorPanel
+«extends JPanel»
+«Sydney Renninger»
+--
+-members: PartyTab
+-providers: PartyTab
+-pages: Ui.Pages
+--
++getPages(): Ui.Pages
++pageIcons(): String[]
++refresh(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1720</x>
+      <y>3860</y>
+      <w>421</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>OperatorPanel.PartyTab
+«extends JPanel»
+«Sydney Renninger»
+--
+-backend: Backend
+--
+~reload(): void
+~select(number: String): void
+~doDelete(number: String): void
+~newForm(existing: String[]): PartyForm
+~formContent(existing: String[], close: Runnable,
+      saveOut: JButton[]): JPanel
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1720</x>
+      <y>4250</y>
+      <w>444</w>
+      <h>159</h>
+    </coordinates>
+    <panel_attributes>OperatorPanel.PartyForm
+«extends JPanel»
+«Sydney Renninger»
+--
+~name, number, address, city, state, zip: JTextField
+~last: JComboBox&lt;String&gt;
+--
+~info(): String[]
+~submit(): boolean
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2300</x>
+      <y>3820</y>
+      <w>413</w>
+      <h>283</h>
+    </coordinates>
+    <panel_attributes>«interface»
+OperatorPanel.Backend
+«Sydney Renninger»
+--
+--
++kind(): String
++nameLabel(): String
++lastLabel(): String
++lastChoices(): String[]
++lastEditable(): boolean
++rows(): List&lt;String[]&gt;
++add(info: String[]): boolean
++update(number: String, info: String[]): boolean
++delete(number: String): boolean
++error(): String
++savedLine(number: String): String
++file(): String
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>4400</y>
+      <w>176</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>«interface»
+Ui.Refreshable
+«Sydney Renninger»
+--
+--
++refresh(): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1150</x>
+      <y>4400</y>
+      <w>207</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>«interface»
+Ui.Paged
+«Sydney Renninger»
+--
+--
++getPages(): Ui.Pages
++pageIcons(): String[]
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1150</x>
+      <y>4700</y>
+      <w>389</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>Ui.Pages
+«extends JPanel»
+«Sydney Renninger»
+--
+-titles: List&lt;String&gt;
+-selected: int
+--
++addTab(title: String, page: Component): void
++setSelectedIndex(index: int): void
++getSelectedIndex(): int
++getTabCount(): int
++getTitleAt(index: int): String
++addChangeListener(l: ChangeListener): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>4700</y>
+      <w>508</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>Ui
+«utility: static helpers»
+«Sydney Renninger»
+--
+_+PRIMARY, NAVY, TEXT, ...: Color_
+_+FONT, BOLD, TITLE, MONO: Font_
+--
+_+init(): void_
+_+primary(text: String): JButton_
+_+secondary(text: String): JButton_
+_+danger(text: String): JButton_
+_+card(): JPanel_
+_+pages(): Pages_
+_+brandMark(size: int): Icon_
+_+avatar(letter: String, size: int): Icon_
+_+label(), bold(), title(), muted(text: String): JLabel_
+_+row(), pair(), stack(), topLeft(), scroll(): layout helpers_
+_+field(columns: int): JTextField_
+_+limit(c, max: int, allowed: String): void_
+_+style(t: JTable): void_
+_+icon(kind: String, color: Color, size: int): Icon_
+_+statTile(icon, color, label, value: JLabel): JPanel_
+_+tileRow(tiles: JComponent...): JPanel_
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1700</x>
+      <y>4700</y>
+      <w>263</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Ui.RoundButton
+«extends JButton»
+«Sydney Renninger»
+--
+-color: Color
+--
++setColor(color: Color): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1700</x>
+      <y>4890</y>
+      <w>357</w>
+      <h>159</h>
+    </coordinates>
+    <panel_attributes>Ui.NavButton
+«extends JButton»
+«Sydney Renninger»
+--
+-kind: String
+-selected: boolean
+--
++setSelectedItem(selected: boolean): void
++isSelectedItem(): boolean
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2200</x>
+      <y>4700</y>
+      <w>302</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>Ui.RoundedCard
+«extends JPanel»
+«Sydney Renninger»
+--
+--
+#paintComponent(g: Graphics): void
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>4300</y>
+      <w>300</w>
+      <h>201</h>
+    </coordinates>
+    <panel_attributes>CoreSystem
+--
+--
+ChocAnDatabase
+LoginController
+MemberController
+ProviderController
+ServiceController
+ProviderDirectory
+ReportController
+AcmeInterface
+Timer
+bg=#EDEDED</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>640</x>
+      <y>4700</y>
+      <w>480</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Host, Refreshable, Paged, Pages, RoundButton, NavButton,
+RoundedCard and GradientPanel are nested types of Ui.
+Ui itself is a static helper class (colours, fonts, builders,
+table styling, icons) used by every screen.
+bg=#FFFBE0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2300</x>
+      <y>4150</y>
+      <w>470</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>OperatorPanel creates two Backend objects, one for
+members and one for providers. They forward to
+MemberController and ProviderController, so the
+rules stay in the controllers.
+bg=#FFFBE0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>60</x>
+      <y>4550</y>
+      <w>420</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Every screen calls the core classes of diagram 1.
+No screen reads or writes a data file itself:
+ChocAnDatabase does that.
+bg=#FFFBE0</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>287</x>
+      <y>3440</y>
+      <w>153</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+content pane ▶
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>20.0;20.0;133.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>939</x>
+      <y>3430</y>
+      <w>331</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>311.0;20.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>939</x>
+      <y>3620</y>
+      <w>331</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>311.0;20.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>175</x>
+      <y>3655</y>
+      <w>329</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+login screen ▶
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>309.2;20.0;309.2;115.0;20.0;115.0;20.0;265.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>543</x>
+      <y>3655</y>
+      <w>166</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>146.0;20.0;146.0;165.0;20.0;165.0;20.0;265.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>669</x>
+      <y>3655</y>
+      <w>298</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+role screen after login ▶
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;165.0;278.0;165.0;278.0;265.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>669</x>
+      <y>3655</y>
+      <w>674</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;165.0;654.0;165.0;654.0;265.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>502</x>
+      <y>4076</y>
+      <w>253</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>233.1;324.0;233.1;164.0;20.0;164.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>4076</y>
+      <w>609</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>589.9;324.0;589.9;209.0;20.0;209.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>820</x>
+      <y>4125</y>
+      <w>70</w>
+      <h>295</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>20.0;275.0;20.0;200.0;50.2;200.0;50.2;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>978</x>
+      <y>4125</y>
+      <w>274</w>
+      <h>295</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>254.3;275.0;254.3;235.0;20.0;235.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>4092</y>
+      <w>434</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>20.0;308.0;20.0;108.0;414.2;108.0;414.2;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1305</x>
+      <y>4092</y>
+      <w>78</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>20.0;308.0;20.0;288.0;59.0;288.0;59.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1280</x>
+      <y>4498</y>
+      <w>40</w>
+      <h>222</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+getPages ▶
+m2=1</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;202.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1407</x>
+      <y>3980</y>
+      <w>333</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+members, providers ▶
+m1=1
+m2=2</panel_attributes>
+    <additional_attributes>20.0;20.0;313.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1910</x>
+      <y>4049</y>
+      <w>51</w>
+      <h>221</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+opens ▶
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>20.0;20.0;31.5;201.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2121</x>
+      <y>3930</y>
+      <w>199</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+backend ▶
+m1=2
+m2=1</panel_attributes>
+    <additional_attributes>20.0;20.0;179.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>3580</y>
+      <w>100</w>
+      <h>840</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+creates and uses ▶</panel_attributes>
+    <additional_attributes>80.0;20.0;50.0;20.0;50.0;820.0;20.0;820.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>5160</y>
+      <w>520</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>Sydney Renninger
+--
+MainMenu, Terminal, ProviderTerminal, OperatorTerminal,
+ManagerTerminal, LoginController, and the whole GUI
+(ChocAnGUI, AppPanel, LoginPanel, ProviderPanel,
+OperatorPanel, ManagerPanel, Ui)
+bg=#CFE6FF</panel_attributes>
+    <additional_attributes></additional_attributes>
+  </element>
+</diagram>

@@ -28,6 +28,10 @@ import java.util.Set;
  *     the next time the data is used;
  *   - lines that are not valid are skipped with a WARNING that says why.
  *
+ * Who wrote what: the storage and lookup methods are Samantha's. The data-file persistence
+ * (loadFromFiles, line-level writes, read-back checks, real-time sync) is Sameeksha's, and
+ * the weekly-update archive (clearWeekRecords) is Namita's.
+ *
  * @author Samantha
  */
 public class ChocAnDatabase {
@@ -94,6 +98,18 @@ public class ChocAnDatabase {
             }
         }
         return null;
+    }
+
+    /** All members (a copy), re-reading member.txt first if it changed. */
+    public List<Member> getMembers() {
+        refresh();
+        return new ArrayList<>(members);
+    }
+
+    /** All providers (a copy), re-reading provider.txt first if it changed. */
+    public List<Provider> getProviders() {
+        refresh();
+        return new ArrayList<>(providers);
     }
 
     /** Writes the new member's line to member.txt, then adds the member. False if the file could not be written. */
@@ -181,6 +197,55 @@ public class ChocAnDatabase {
             }
         }
         return week;
+    }
+
+    /**
+     * Starts a new week: moves this week's service records (the ones getWeekRecords returns)
+     * from records.txt to records_archive.txt. The archive is written first, so nothing is lost.
+     * @return the number of records moved, or -1 if a file could not be written
+     */
+    public int clearWeekRecords() {
+        refresh();
+        lastWriteError = "";
+        if (dataDir == null) {
+            List<ServiceRecord> week = getWeekRecords();
+            records.removeAll(week);
+            return week.size();
+        }
+        Path path = Paths.get(dataDir, "records.txt");
+        Path archive = Paths.get(dataDir, "records_archive.txt");
+        try {
+            Map<String, Service> services = loadServices(dataDir);
+            LocalDateTime cutoff = LocalDateTime.now().minusDays(7);
+            List<String> keep = new ArrayList<>();
+            List<String> moved = new ArrayList<>();
+            for (String raw : Files.readAllLines(path, StandardCharsets.UTF_8)) {
+                String line = raw.trim();
+                ServiceRecord r = (line.isEmpty() || line.startsWith("#")) ? null : ServiceRecord.fromLine(line, services);
+                if (r != null && !r.getReceivedDateTime().isBefore(cutoff)) {
+                    moved.add(line);
+                } else {
+                    keep.add(raw);
+                }
+            }
+            if (moved.isEmpty()) {
+                return 0;
+            }
+            List<String> block = new ArrayList<>();
+            block.add("# archived " + LocalDateTime.now().format(ServiceRecord.DATE_TIME) + " (" + moved.size() + " services)");
+            block.addAll(moved);
+            Files.write(archive, block, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.write(path, keep, StandardCharsets.UTF_8);
+            if (Files.readAllLines(path, StandardCharsets.UTF_8).size() != keep.size()) {
+                lastWriteError = path + " does not show the change after writing";
+                return -1;
+            }
+            reloadRecords();
+            return moved.size();
+        } catch (IOException e) {
+            lastWriteError = path + " (" + e.getClass().getSimpleName() + ")";
+            return -1;
+        }
     }
 
     /** Members who received at least one service this week. */
@@ -302,7 +367,7 @@ public class ChocAnDatabase {
         Set<String> numbers = new HashSet<>();
         for (String line : readLines(dataDir, "member.txt")) {
             String[] f = fields(line);
-            String error = Person.validate(f);
+            String error = Party.validate(f);
             if (error == null && (f.length < 7 || !f[6].matches("(?i)active|suspended"))) {
                 error = "Status must be Active or Suspended";
             }
@@ -327,7 +392,7 @@ public class ChocAnDatabase {
         Set<String> numbers = new HashSet<>();
         for (String line : readLines(dataDir, "provider.txt")) {
             String[] f = fields(line);
-            String error = Person.validate(f);
+            String error = Party.validate(f);
             if (error == null && (f.length < 7 || !f[6].matches("[^|]{1,25}"))) {
                 error = "Provider type must be 1-25 characters";
             }

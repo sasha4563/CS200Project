@@ -63,6 +63,51 @@ public class AcmeInterface {
         return Math.max(0, process(simulationFile, false));
     }
 
+    /** The file the schedule is read from. */
+    public String getSimulationFile() {
+        return simulationFile;
+    }
+
+    /** How many lines of the simulation file have not been applied yet. */
+    public int countPending() {
+        return pendingLines().size();
+    }
+
+    /** The earliest time of a pending line ("" if none has a valid time). */
+    public String nextScheduled() {
+        LocalDateTime next = null;
+        for (String[] f : pendingLines()) {
+            LocalDateTime t = (f.length > 2) ? parseTime(f[2]) : null;
+            if (t != null && (next == null || t.isBefore(next))) {
+                next = t;
+            }
+        }
+        return next == null ? "" : next.format(ServiceRecord.DATE_TIME);
+    }
+
+    private List<String[]> pendingLines() {
+        List<String[]> pending = new ArrayList<>();
+        try {
+            for (String raw : Files.readAllLines(Paths.get(simulationFile), StandardCharsets.UTF_8)) {
+                String line = raw.trim();
+                if (line.isEmpty() || line.startsWith("#")) {
+                    continue;
+                }
+                String[] f = line.split(",");
+                for (int i = 0; i < f.length; i++) {
+                    f[i] = f[i].trim();
+                }
+                boolean done = f.length >= 4 && (f[3].equalsIgnoreCase("APPLIED") || f[3].equalsIgnoreCase("SKIPPED"));
+                if (f.length >= 2 && !done) {
+                    pending.add(f);
+                }
+            }
+        } catch (IOException e) {
+            // no file: nothing pending
+        }
+        return pending;
+    }
+
     public String getLastUpdate() {
         return lastUpdate;
     }
