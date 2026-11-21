@@ -1,4 +1,4 @@
-# CS200Project-
+# CS200Project
 Semester Long Project for CS 200 
 ChocAn Data Processing System - Project 4
 ==========================================
